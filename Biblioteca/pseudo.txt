@@ -1,0 +1,20 @@
+clase nodo{
+	cadena nombre, apellido, colegio;
+	entero turno;
+	puntero anterior, siguiente;
+}
+
+clase lista{
+	estructura lista, auxiliar, auxliriar2, ultimo, contador1, contador2, orden;
+	entero cantidad, turno;
+
+	constructor();
+	llenar();
+	mostrar();
+	hacerCircular();
+	contador();
+	eliminar();
+}
+
+inicio
+	
