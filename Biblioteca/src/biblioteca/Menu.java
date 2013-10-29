@@ -17,8 +17,8 @@ public class Menu {
         System.out.println("--------------------------------");
         System.out.println("--------------MENU--------------");
         System.out.println("--------------------------------");
-        System.out.println("1.-Ingresar niño.");
-        System.out.println("2.-Ver lista de niños.");
+        System.out.println("1.-Ingresar nino.");
+        System.out.println("2.-Ver lista de ninos.");
         System.out.println("3.-Buscar.");
         System.out.println("4.-Borrar.");
         System.out.println("5.-Circular.");
