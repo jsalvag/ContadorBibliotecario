@@ -1,8 +1,8 @@
 package biblioteca;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.IOException;
 
 class nodo{
     String nom, ape, cole;
@@ -13,7 +13,6 @@ class nodo{
 public class Lista {
     nodo L, aux, aux2, ult, contB1, contB2, orden;
     int cant, t;
-    
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
     Manejador ar = new Manejador();
     
@@ -23,15 +22,17 @@ public class Lista {
         orden=null;
         t=0;
         ar.crear();
-        
     }
     
     void llenar() throws IOException{
         int[] n = ar.leerNum();
         int a = n[0];
+        
+        System.out.println("Ingrese los datos de "+a+" niños");
+        
         for(int i=0;i<a;i++){
             nodo nv = new nodo();
-            System.out.println("Ingrese los datos del niño");
+            System.out.println("Niño #"+(i+1));
             System.out.print("Nombre: ");
             nv.nom=br.readLine();
             System.out.print("Apellido: ");
@@ -58,7 +59,6 @@ public class Lista {
             System.out.println("Ultimo: "+ult.nom);
             cant++;
         }
-        
     }
     
     void mostrar(){
@@ -92,60 +92,6 @@ public class Lista {
         }else{
             System.err.println("Lista esta vacia...");
         }
-        
-    }
-    
-    void buscar() throws IOException{
-        if(L!=null){
-            aux=L;
-            String nomb;
-            System.out.print("Nombre a buscar: ");
-            nomb=br.readLine();
-            while((!nomb.equals(aux.nom))&&(aux.sig!=L)){
-                aux=aux.sig;
-            }
-            if(nomb.equals(aux.nom)){
-                System.out.println("Nombre: "+aux.nom);
-                System.out.println("Apellido: "+aux.ape);
-                System.out.println("Colegio: "+aux.cole);
-            }else{
-                System.err.println("No se encontro el nombre...");
-            }
-        }else{
-            System.err.println("Lista vacia...");
-        }
-    }
-    
-    void eliminar() throws IOException{
-        if(L!=null){
-            aux=L;
-            nodo temSig, temAnt;
-            String nomb;
-            System.out.print("Nombre a eliminar: ");
-            nomb=br.readLine();
-            if(nomb.equals(L.nom)){
-                L=aux.sig;
-            }
-            while((!nomb.equals(aux.nom))&&(aux.sig!=L)){
-                aux=aux.sig;
-            }
-            if(nomb.equals(aux.nom)){
-                temSig = aux.sig;
-                temAnt = aux.ante;
-
-                if((temAnt!=L)&&(temSig!=L)){
-                    temSig.ante = temAnt;
-                    temAnt.sig = temSig;
-                }else{
-                    L=null;
-                }
-            }else{
-                System.err.println("No se encontro el nombre...");
-            }
-            cant--;
-        }else{
-            System.err.println("Lista vacia...");
-        }
     }
     
     void contarB() throws IOException{
@@ -155,10 +101,10 @@ public class Lista {
         int b = n[2];
         
         contB1=L;
-        contB2=L;
+        contB2=ult;
         
         while(L!=null){
-            
+            t++;
             for(int i=0;i<a;i++){
                 contB1=contB1.sig;
             }
@@ -166,21 +112,18 @@ public class Lista {
                 contB2=contB2.ante;
             }
             if(contB1==contB2){
-                t++;
                 insertar(contB1,t);
                 contB1=contB1.sig;
                 contB2=contB2.ante;
                 eliminarB(contB1.ante);
             }else{
-                t++;
                 insertar(contB1,t);
                 contB1=contB1.sig;
                 eliminarB(contB1.ante);
                 
                 insertar(contB2,t);
-                contB2=contB2.sig;
-                eliminarB(contB2.ante);
-                
+                contB2=contB2.ante;
+                eliminarB(contB2.sig);
             }
         }
     }

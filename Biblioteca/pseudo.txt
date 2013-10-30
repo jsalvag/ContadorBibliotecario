@@ -4,17 +4,203 @@ clase nodo{
 	puntero anterior, siguiente;
 }
 
+clase manejador{
+	escribir archivo pf
+	leer archivo fr
+	leer bufer br
+
+	crear()
+	leerArchivo()
+}
+
 clase lista{
-	estructura lista, auxiliar, auxliriar2, ultimo, contador1, contador2, orden;
+	estructura L, auxiliar, auxliriar2, ultimo, contador1, contador2, orden;
 	entero cantidad, turno;
 
-	constructor();
-	llenar();
-	mostrar();
-	hacerCircular();
-	contador();
-	eliminar();
+	lista()
+	llenar()
+	mostrar()
+	hacerCircular()
+	eliminar(nodo n)
+	contador()
+	orden(nodo n)
 }
 
 inicio
-	
+
+	crear(){
+
+		pf = crear archivo de nombre ("contadores.txt")
+	}
+
+	leerArchivo(){
+		arreglo numeros
+
+		fr = cargar archivo ("contadores.txt")
+		br = leer datos de (fr)
+
+		mientras (lineas != nulo) hacer
+			numeros = separar datos cada ("-")
+		fin mientras
+
+		retornar numeros
+	}
+
+	lista(){
+		L = nulo
+		orden = nulo
+		turno = 0
+	}
+
+	llenar(){
+		n = leerArchivo()
+		c = n[0]
+		nodo nv = nuevo nodo
+
+		para (i=0 hasta i<c) hacer
+			imprimmir("Datos del niño: ")
+			imprimmir("Nombre: ")
+			leer(nv.nombre)
+			imprimmir("Apellido: ")
+			leer(nv.apellido)
+			imprimmir("Colegio: ")
+			leer(nv.colegio)
+
+			nv.siguiente = nulo
+			nv.anterior = nulo
+
+			auxiliar = L
+
+			si (L == nulo) entonces
+				L = nv
+				ultimo = nv
+			sino
+
+				mientras (auxiliar.siguiente != nulo) hacer
+					auxiliar=auxiliar.siguiente
+				fin mientras
+
+				aux.siguiente = nv
+				ultimo = nv
+
+			fin si
+		fin para
+	}
+
+	mostrar(nodo n){
+		auxiliar=n
+
+		mientras (auxiliar.siguiente != n) hacer
+			datos = datos + auxiliar.turno + auxiliar.nombre + auxiliar.apellido + auxiliar.colegio + (salto de linea)
+		fin mientras
+
+		imprimir(datos)
+	}
+
+	hacerCircular(){
+		L.anterior = ultimo
+		ultimo.siguiente = L
+	}
+
+	eliminar(nodo n){
+		auxiliar = L
+		nodo anterior, siguiente
+
+		mientras(auxiliar != n) hacer
+			auxiliar=auxiliar.siguiente
+		fin mientras
+
+		si (auxiliar == L) entonces
+			L = L.siguiente
+		fin si
+
+		si(auxiliar es el unico nodo) entonces
+			L = nulo
+		sino
+			anterior = auxiliar.anterior
+			siguiente = auxiliar.siguiente
+
+			anterior.siguiente = siguiente
+			siguiente.anterior = anterior
+		fin si
+	}
+
+	orden(nodo n){
+		auxliriar2.nombre = n.nombre
+		auxliriar2.apellido = n.apellido
+		auxliriar2.colegio = n.colegio
+		auxliriar2.turno = n.turno
+
+		si (orden == nulo) entonces
+			orden=auxliriar2
+		sino
+			auxiliar=orden
+			
+			mientras(auxiliar.siguiente != nulo) hacer
+				auxiliar=auxiliar.siguiente
+			fin mientras
+
+			auxiliar.siguiente = auxliriar2
+	}
+
+	contador(){
+		hacerCircular()
+		n = leerArchivo()
+		a = n[1]
+		b = n[2]
+
+		contador1 = L
+		contador2 = L
+
+		mientras (L != nulo) hacer
+
+			para (i=0 hasta  i<a) hacer
+				contador1=contador1.siguiente
+			fin para
+			para (i=0 hasta i<b) hacer
+				contador2=contador2.anterior
+			fin para
+
+			si (contador1 != contador2) entonces
+				turno = turno +1
+				contador1.turno = turno
+				orden(contador1)
+				contador1=contador1.siguiente
+				eliminar(contador1.anterior)
+
+				contador2.turno = turno
+				orden(contador2)
+				contador2=contador2.anterior
+				eliminar(contador2.siguiente)
+			sino
+				turno = turno +1
+				contador1.turno = turno
+				orden(contador1)
+				contador1=contador1.siguiente
+				contador1=contador2.anterior
+				eliminar(contador1.anterior)
+			fin si
+
+		fin mientras
+	}
+
+	menu{
+		salir = "no"
+		mientras(salir != "si") hacer 
+			imprimir("1.-Llenar lista inicioicial")
+			imprimir("2.-Ver lista inicial")
+			imprimir("3.-Generar lista para orden de lectura")
+			imprimir("4.-Ver lista de orden de lectura")
+			imprimir("5.-Salir")
+
+			leer(opcion)
+
+			segun (opcion) hacer
+				
+				caso 1 = llenar()
+				caso 2 = mostrar(L)
+				caso 3 = contador()
+				caso 4 = mostrar(orden)
+				caso 5 = salir = "si"
+		fin mientras
+	}
